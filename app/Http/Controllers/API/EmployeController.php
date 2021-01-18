@@ -48,20 +48,20 @@ class EmployeController extends BaseController {
                     $late_start_day++;
                 }
             }
-            $per_day_salery = $emp->salary / $working_day;
+            $per_day_salary = $emp->salary / $working_day;
             $present_day = $attendances->count();
-            $salery_on_hand = ceil($per_day_salery * $present_day);
+            $salary_on_hand = ceil($per_day_salary * $present_day);
             //leat day count
-            $salery_on_hand = $salery_on_hand - ($per_day_salery * floor($late_start_day / 2));
+            $salary_on_hand = $salary_on_hand - ($per_day_salary * floor($late_start_day / 2));
             //early day count
-            $salery_on_hand = $salery_on_hand + ($per_day_salery * floor($early_start_day / 10));
+            $salary_on_hand = $salary_on_hand + ($per_day_salary * floor($early_start_day / 10));
             $emp->present_day = $present_day;
             $emp->late_start_day = $late_start_day;
             $emp->early_start_day = $early_start_day;
             $emp->working_day = $working_day;
-            $emp->salery_on_hand = number_format(ceil($salery_on_hand), 2);
+            $emp->salary_on_hand = number_format(ceil($salary_on_hand), 2);
         }
-        return $this->sendResponse([$employee], 'Salery get successfully.');
+        return $this->sendResponse([$employee], 'Salary get successfully.');
     }
 
 }

@@ -1,0 +1,52 @@
+{
+	"info": {
+		"_postman_id": "e9d540e5-7508-4761-9142-eddb0533e921",
+		"name": "globosoft",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "working-days-salary",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "month",
+							"value": "12",
+							"description": "1 to 12",
+							"type": "text"
+						},
+						{
+							"key": "year",
+							"value": "2020",
+							"type": "text"
+						},
+						{
+							"key": "base_in_time",
+							"value": "9:30",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/working-days-salary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"working-days-salary"
+					]
+				},
+				"description": "Salary is calculated based on working days"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
