@@ -32,18 +32,21 @@ Route::post('/login/employee', 'Auth\LoginController@EmployeeLogin');
 Route::get('/register/employee', 'Auth\RegisterController@showEmployeeRegisterForm');
 Route::post('/register/employee', 'Auth\RegisterController@createEmployee');
 
-
-Route::any('/logout/employee', function () {
-    Auth::guard('employee')->logout();
-    return redirect()->guest('/login/employee');
+Route::group(['middleware' => ['IsEmployee']], function() {
+    Route::view('/home', 'home')->middleware('auth');
+    Route::resource('/employees', 'admin\EmployeesController');
+    Route::any('/logout/employee', function () {
+        Auth::guard('employee')->logout();
+        return redirect()->guest('/login/employee');
+    });
 });
-Route::any('/logout/admin', function () {
-    Auth::guard('admin')->logout();
-    return redirect()->guest('/login/admin');
-});
 
-Route::view('/home', 'home')->middleware('auth');
-Route::view('/admin', 'admin');
-Route::resource('/employees', 'admin\EmployeesController');
-Route::get('employees-export', 'admin\EmployeesController@export')->name('employees-export');
-Route::view('/employee', 'employee');
+Route::group(['middleware' => ['IsAdmin']], function() {
+    Route::view('/admin', 'admin');
+    Route::any('/logout/admin', function () {
+        Auth::guard('admin')->logout();
+        return redirect()->guest('/login/admin');
+    });
+    Route::get('employees-export', 'admin\EmployeesController@export')->name('employees-export');
+    Route::view('/employee', 'employee');
+});

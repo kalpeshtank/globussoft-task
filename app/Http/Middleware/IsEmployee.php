@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class IsEmployee
-{
+class IsEmployee {
+
     /**
      * Handle an incoming request.
      *
@@ -13,8 +13,8 @@ class IsEmployee
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next) {
         return $next($request);
     }
+
 }
