@@ -8,7 +8,7 @@ use App\User;
 use App\Employee;
 use App\Attendances;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeController extends BaseController {
     /**
@@ -23,7 +23,14 @@ class EmployeController extends BaseController {
      * @return \Illuminate\Http\Response
      */
     public function salary(Request $request) {
-//        return $this->sendError('Validation Error.', ['$month' => '6:30' < '6:29']);
+        $validator = Validator::make($request->all(), [
+                    'year' => 'required',
+                    'month' => 'required',
+                    'base_in_time' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->first());
+        }
         $holidays = array();
         $months = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July ', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December');
         if ($request->month && $request->year) {
